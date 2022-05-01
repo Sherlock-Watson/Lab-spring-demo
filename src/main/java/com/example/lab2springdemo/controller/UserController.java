@@ -7,19 +7,16 @@ import com.example.lab2springdemo.request.UserRegisterRequest;
 import com.example.lab2springdemo.response.ErrorResponse;
 import com.example.lab2springdemo.response.UserResponse;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.List;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public @ResponseBody Object register(UserRegisterRequest request) throws
+    @CrossOrigin(origins = "*")
+    public @ResponseBody Object register(@RequestBody UserRegisterRequest request) throws
             IOException {
         SqlSession sqlSession = SqlSessionLoader.getSqlSession();
         User user = sqlSession.selectOne("adweb.lab2.UserMapper.findUserByUsername",
@@ -38,7 +35,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public @ResponseBody Object login(UserLoginRequest request) throws
+    @CrossOrigin(origins = "*")
+    public @ResponseBody Object login(@RequestBody UserLoginRequest request) throws
             IOException {
         SqlSession sqlSession = SqlSessionLoader.getSqlSession();
         User user = sqlSession.selectOne("adweb.lab2.UserMapper.findUserByUsername",
@@ -52,6 +50,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/list")
+    @CrossOrigin(origins = "*")
     public @ResponseBody Object list() throws
             IOException {
         SqlSession sqlSession = SqlSessionLoader.getSqlSession();

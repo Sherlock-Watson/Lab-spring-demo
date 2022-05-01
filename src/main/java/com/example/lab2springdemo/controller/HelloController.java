@@ -11,7 +11,7 @@ public class HelloController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping("/hello")
-    public String index() {
+    public @ResponseBody String index() {
         return "Hello, World!";
     }
 
